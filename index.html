@@ -1,41 +1,31 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html>  
+<html lang="en">
+   
   <head>
+     
     <meta charset="UTF-8" />
+     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+     
+    <title>Simple Router</title>
+     
+    <script src="./28.实现简单路由.js"></script>
+     
   </head>
+   
   <body>
-    <div
-      id="red"
-      style="
-        width: 50px;
-        height: 50px;
-        background: red;
-        border-radius: 50%;
-        opacity: 0;
-      "
-    ></div>
-    <div
-      id="green"
-      style="
-        width: 50px;
-        height: 50px;
-        background: green;
-        border-radius: 50%;
-        opacity: 0;
-      "
-    ></div>
-    <div
-      id="yellow"
-      style="
-        width: 50px;
-        height: 50px;
-        background: yellow;
-        border-radius: 50%;
-        opacity: 0;
-      "
-    ></div>
-    <script src="./23.红绿灯promise.js"></script>
+       
+    <nav>
+           <a href="#/">Home</a> |      <a href="#/about">About</a> |      <a
+        href="#/contact"
+        >Contact</a
+      >
+       
+    </nav>
+       
+    <div id="content"></div>
+    <!-- 这里显示路由内容 -->
+       
   </body>
+   
 </html>
