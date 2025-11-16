@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .target {
+        margin: 5px;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      const container = document.querySelector(".container");
+      function createTargets() {
+        const htmlString = new Array(100000)
+          .fill('<div class="target">test</div>')
+          .join("");
+        container.innerHTML = htmlString;
+      }
+      createTargets();
+      const targets = document.querySelectorAll(".target");
+      // 方法一：使用getBoundingClientRect
+      //   function isInViewPort(element) {
+      //     const viewWidth =
+      //       window.innerWidth || document.documentElement.clientWidth;
+      //     const viewHeight =
+      //       window.innerHeight || document.documentElement.clientHeight;
+      //     const { top, right, bottom, left } = element.getBoundingClientRect();
+      //     return (
+      //       top >= 0 && left >= 0 && right <= viewWidth && bottom <= viewHeight
+      //     );
+      //   }
+      //   document.addEventListener("scroll", () => {
+      //     console.log("scroll");
+      //     targets.forEach((target) => {
+      //       if (isInViewPort(target)) {
+      //         target.style.backgroundColor = "yellow";
+      //       }
+      //     });
+      //   });
+      // 方法二：使用IntersectionObserver观察者方法
+      const observer = new IntersectionObserver(getYellow, { threshold: 1.0 });
+      function getYellow(entries, observer) {
+        entries.forEach((entry) => {
+          entry.target.style.backgroundColor = "yellow";
+        });
+      }
+      targets.forEach((target) => {
+        observer.observe(target);
+      });
+    </script>
+  </body>
+</html>
