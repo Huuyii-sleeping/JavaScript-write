@@ -1,0 +1,42 @@
+div {
+  margin-bottom: 20px;
+}
+
+.test1 {
+  width: 0;
+  height: 0;
+  border: 100px solid;
+  border-color: orange blue red green;
+}
+
+.test2 {
+  width: 0;
+  height: 0;
+  border-top: 50px solid red;
+  border-right: 50px solid transparent;
+  border-left: 50px solid transparent;
+}
+
+.test3 {
+  width: 0;
+  height: 0;
+  border-bottom: 50px solid red;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
+
+.test4 {
+  width: 0;
+  height: 0;
+  border-left: 50px solid red;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+}
+
+.test5 {
+  width: 0;
+  height: 0;
+  border-right: 50px solid red;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+}
