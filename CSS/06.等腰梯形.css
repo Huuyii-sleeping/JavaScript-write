@@ -1,0 +1,7 @@
+.test10{
+    height: 0;
+    width: 100px;
+    border-width: 0 40px 100px 40px;
+    border-style: none solid solid;
+    border-color: transparent transparent red;
+}

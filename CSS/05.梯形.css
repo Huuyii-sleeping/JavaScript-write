@@ -1,0 +1,6 @@
+.test9 {
+  height: 0;
+  width: 100px;
+  border-bottom: 100px solid red;
+  border-right: 40px solid transparent;
+}
