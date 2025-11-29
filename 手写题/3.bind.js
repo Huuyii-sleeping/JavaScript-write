@@ -13,7 +13,7 @@ Function.prototype.myBind = function (context) {
       // 新的函数fn被当作构造函数（使用new进行调用），this指向新创建的fn实例，
       // 否则指向bind时指定的context（原来创建的fn实例）
       this instanceof Fn ? this : context,
- 
+
       // 合并参数
       args.concat(...arguments)
     );
@@ -43,3 +43,4 @@ const user = new boundUser("李四", 20);
 console.log(user.name);
 console.log(user.age);
 console.log(user.__proto__ === User.prototype);
+

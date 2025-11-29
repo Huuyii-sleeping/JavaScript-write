@@ -25,4 +25,5 @@ function add(a,b) {
 
 const curriedAdd = curry(add)
 const addFive = curriedAdd(5)
+addFive(1)
 console.log([1,2,3].map(addFive))

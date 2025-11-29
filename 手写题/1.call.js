@@ -21,8 +21,10 @@ Function.prototype.myCall = function (context) {
   return result;
 };
 
+
 function fn(a, b) {
   console.log(this.name, a + b);
 }
+
 const obj = { name: "test" };
 fn.myCall(obj, 1, 2);
