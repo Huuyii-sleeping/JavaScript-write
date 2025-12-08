@@ -65,3 +65,34 @@ console.log(original.b === copied.b); // false
  * 请注意，这个深拷贝函数并不完整，它没有处理函数、Symbol、Error等特殊对象，也没有处理原型链、getter/setter等情况。
  * 在实际应用中，你可能需要使用更健壮的库，如lodash的_.cloneDeep()方法，或者实现更完整的深拷贝逻辑。
  */
+
+function deepClone(obj, map = new WeakMap()) {
+  if (typeof obj !== "object" || obj === null) {
+    return obj;
+  }
+  if (obj instanceof Date) {
+    return new Date(obj);
+  }
+  if (obj instanceof RegExp) {
+    return new RegExp(obj);
+  }
+  if (map.has(obj)) {
+    return map.get(obj);
+  }
+
+  let newObj = Array.isArray(obj) ? [] : {};
+  map.set(obj, newObj);
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      obj[key] = deepClone(obj[key], map);
+    }
+  }
+  return obj;
+}
+
+function shallowClone(obj) {
+  if (typeof obj !== "object" || obj === null) {
+    return obj;
+  }
+  return Object.assign({}, obj);
+}
