@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .countdown span {
+        font-weight: bold;
+        font-size: 24px;
+        color: #e74c3c;
+        margin: 0 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="timer" class="countdown">
+      <span class="days">00</span>天 <span class="hours">00</span>时
+      <span class="minutes">00</span>分 <span class="seconds">00</span>秒
+    </div>
+  </body>
+  <script>
+    class CountDown {
+      constructor(targetTime, selector) {
+        this.targetTime = new Date(targetTime).getTime();
+        this.container = document.querySelector(selector);
+        this.timer = null;
+
+        // 缓存 DOM 节点，避免每次 setInterval 都去查询 DOM (性能优化)
+        this.doms = {
+          days: this.container.querySelector(".days"),
+          hours: this.container.querySelector(".hours"),
+          minutes: this.container.querySelector(".minutes"),
+          seconds: this.container.querySelector(".seconds"),
+        };
+
+        this.start();
+      }
+
+      // 补零函数：9 -> 09
+      format(num) {
+        // 使用 ES string.padStart 方法，优雅补零
+        return String(num).padStart(2, "0");
+      }
+
+      // 计算并渲染
+      render() {
+        const now = Date.now();
+        // 关键点：每次都用 (目标时间 - 当前时间) 重新计算，而不是 time--
+        // 这样可以避免 setInterval 的执行误差
+        const diff = this.targetTime - now;
+
+        // 倒计时结束处理
+        if (diff <= 0) {
+          this.stop();
+          console.log("倒计时结束");
+          // 强制归零
+          Object.values(this.doms).forEach((el) => (el.innerText = "00"));
+          return;
+        }
+
+        // --- 核心数学公式 ---
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        // 更新 DOM
+        this.doms.days.innerText = this.format(days);
+        this.doms.hours.innerText = this.format(hours);
+        this.doms.minutes.innerText = this.format(minutes);
+        this.doms.seconds.innerText = this.format(seconds);
+      }
+
+      start() {
+        // 先执行一次，防止 setInterval 的 1秒 延迟造成的页面闪烁
+        this.render();
+        this.timer = setInterval(() => {
+          this.render();
+        }, 1000);
+      }
+
+      stop() {
+        if (this.timer) {
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      }
+    }
+
+    // --- 使用方式 ---
+    // 传入未来的某个时间字符串
+    const counter = new CountDown("2025-12-31 23:59:59", "#timer");
+  </script>
+</html>
